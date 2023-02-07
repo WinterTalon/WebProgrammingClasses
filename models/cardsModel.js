@@ -80,13 +80,12 @@ class Card {
     static async filterByType(typeId) {
         try {
             let result = [];
-            let [cards, fields] =
-                await pool.query("Select * from cards where crd_type=?", [typeId]);
+            let [cards, fields] = await pool.query("Select * from cards where crd_type=?", [typeId]);
             for (let card of cards) {
-                result.push(new Card(card[0].crd_id,card[0].crd_name, 
-                    card[0].crd_img_url, card[0].crd_lore, card[0].crd_description,
-                    card[0].crd_level, card[0].crd_cost, card[0].crd_timeout,
-                    card[0].crd_max_usage, card[0].crd_type));
+                result.push(new Card(card.crd_id,card.crd_name, 
+                    card.crd_img_url, card.crd_lore, card.crd_description,
+                    card.crd_level, card.crd_cost, card.crd_timeout,
+                    card.crd_max_usage, card.crd_type));
             }
             return { status: 200, result: result };
         } catch (err) {
