@@ -17,7 +17,7 @@ const { body, validationResult } = require('express-validator');
       });
 
     //GetByID
-    router.get('/:id', async function(req, res, next) {
+    router.get('/:id(\\d+)', async function(req, res, next) {
         try { 
             console.log("Get card with id "+req.params.id);
             let result = await Card.getById(req.params.id);
