@@ -53,13 +53,12 @@ const { body, validationResult } = require('express-validator');
         router.get('/filter', async function (req, res, next) {
             try {
                 console.log("Filter cards");                        
-                if (req.query.typeId) {
-                    console.log("Filter cards with type " + req.query.typeId);   
-                    let result = await Card.filterByType(req.query.typeId);
+                if (req.body.typeId) {
+                    console.log("Filter cards with type " + req.body.typeId);   
+                    let result = await Card.filterByType(req.body.typeId);
                     res.status(result.status).send(result.result);
                 } else {        
                     console.log("No filter");
-
                     res.status(400).send({ msg: "No filter provided" });
                 }
             } catch (err) {
