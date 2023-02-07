@@ -13,5 +13,17 @@ const router = express.Router();
             res.status(500).send(err);
         }
       });
+
+      router.get('/:id', async function(req, res, next) {
+        try { 
+            console.log("Get card with id "+req.params.id);
+            let result = await Card.getById(req.params.id);
+            console.log(result);
+            res.status(result.status).send(result.result);
+        } catch(err) {
+            console.log(err);
+            res.status(500).send(err);
+        }
+      });
     
     module.exports = router;

@@ -31,6 +31,23 @@ class Card {
             return {status: 500, result: err };
         }
     }
+
+    static async getById(id) {
+        try{
+            let result;
+            let [card,fields] = await pool.query("Select * from cards where crd_id =?",[id]);
+            if (!dbCards)
+                  return {status:404, result: {msg: "No card found with that identifier"}};
+            result = new Card(card.crd_id,card.crd_name, 
+                card.crd_img_url, card.crd_lore, card.crd_description,
+                card.crd_level, card.crd_cost, card.crd_timeout,
+                card.crd_max_usage, card.crd_type);
+            return {status: 200, result: result};
+        }catch(err){
+            console.log(err);
+            return {status: 500, result: err };
+        }
+    }
 }
 
 module.exports = Card;
