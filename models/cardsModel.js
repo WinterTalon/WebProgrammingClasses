@@ -98,12 +98,15 @@ class Card {
     static async filterByLoreOrDescription(text) {
         try {
             let result = [];
-            let [dbCards] =
+            let [cards] =
                 await pool.query(`Select * from cards 
                 where crd_description LIKE ? or crd_lore LIKE ?`, 
                 ['%'+text+'%','%'+text+'%']);
-            for (let dbCard of dbCards) {
-                result.push(cardFromDB(dbCard));
+            for (let card of cards) {
+                result.push(new Card(card.crd_id,card.crd_name, 
+                    card.crd_img_url, card.crd_lore, card.crd_description,
+                    card.crd_level, card.crd_cost, card.crd_timeout,
+                    card.crd_max_usage, card.crd_type));
             }
             return { status: 200, result: result };
         } catch (err) {
