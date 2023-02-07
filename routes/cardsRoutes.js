@@ -17,7 +17,7 @@ const { body, validationResult } = require('express-validator');
       });
 
     //GetByID
-    router.get('/:id(\\d+)', async function(req, res, next) {
+    router.get('/:id(\\d+)', async function(req, res, next) { // the "(\\d+)" is to just accept integer numbers
         try { 
             console.log("Get card with id "+req.params.id);
             let result = await Card.getById(req.params.id);
@@ -54,6 +54,7 @@ const { body, validationResult } = require('express-validator');
             try {
                 console.log("Filter cards");                        
                 if (req.query.typeId) {
+                    console.log("Filter cards with type " + req.query.typeId);   
                     let result = await Card.filterByType(req.query.typeId);
                     res.status(result.status).send(result.result);
                 } else {        
