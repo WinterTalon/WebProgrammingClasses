@@ -58,6 +58,8 @@ const { body, validationResult } = require('express-validator');
                     let result = await Card.filterByType(req.query.typeId);
                     res.status(result.status).send(result.result);
                 } else {        
+                    console.log("No filter");
+
                     res.status(400).send({ msg: "No filter provided" });
                 }
             } catch (err) {
