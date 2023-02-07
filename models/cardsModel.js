@@ -80,9 +80,9 @@ class Card {
     static async filterByType(typeId) {
         try {
             let result = [];
-            let [dbCards, fields] =
+            let [cards, fields] =
                 await pool.query("Select * from cards where crd_type=?", [typeId]);
-            for (let dbCard of dbCards) {
+            for (let card of cards) {
                 result.push(new Card(card[0].crd_id,card[0].crd_name, 
                     card[0].crd_img_url, card[0].crd_lore, card[0].crd_description,
                     card[0].crd_level, card[0].crd_cost, card[0].crd_timeout,
