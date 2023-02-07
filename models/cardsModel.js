@@ -36,7 +36,7 @@ class Card {
         try{
             let result;
             let [card,fields] = await pool.query("Select * from cards where crd_id =?",[id]);
-            if (!dbCards)
+            if (card.length)
                   return {status:404, result: {msg: "No card found with that identifier"}};
             result = new Card(card.crd_id,card.crd_name, 
                 card.crd_img_url, card.crd_lore, card.crd_description,
