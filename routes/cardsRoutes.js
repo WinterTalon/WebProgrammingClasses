@@ -30,7 +30,7 @@ const { body, validationResult } = require('express-validator');
       });
 
     //Create Card
-    router.post("/post", body('name').isLength({ min: 4, max: 60 }).withMessage('Name must have between 4 and 60 characters'),
+    router.post("/", body('name').isLength({ min: 4, max: 60 }).withMessage('Name must have between 4 and 60 characters'),
         body('level').isInt({ min: 0 }).withMessage('Level must be a non negative integer number'),
         body('type').isInt({ min: 1 }).withMessage('Type must be a positive integer number'),
         async function (req, res, next) {
