@@ -75,6 +75,25 @@ class Card {
             return { status: 500, result: err };
         }
     }
+
+    //Filter by Type
+    static async filterByType(typeId) {
+        try {
+            let result = [];
+            let [dbCards, fields] =
+                await pool.query("Select * from cards where crd_type=?", [typeId]);
+            for (let dbCard of dbCards) {
+                result.push(new Card(card[0].crd_id,card[0].crd_name, 
+                    card[0].crd_img_url, card[0].crd_lore, card[0].crd_description,
+                    card[0].crd_level, card[0].crd_cost, card[0].crd_timeout,
+                    card[0].crd_max_usage, card[0].crd_type));
+            }
+            return { status: 200, result: result };
+        } catch (err) {
+            console.log(err);
+            return { status: 500, result: err };
+        }
+    }
 }
 
 module.exports = Card;
