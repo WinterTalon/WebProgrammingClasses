@@ -157,6 +157,19 @@ class Card {
         }
     }
     //Delete Card
+    static async deleteById(id) {
+        try {
+            let [result] =
+                await pool.query("delete from cards where crd_id=?", [id]);
+            // if nothing was deleted it means no card exists with that id
+            if (!result.affectedRows)
+                return { status: 404, result: { msg: "No card found with that identifier" } };
+            return { status: 200, result: {msg: "Card deleted!"} };
+        } catch (err) {
+            console.log(err);
+            return { status: 500, result: err };
+        }
+    }
 }
 
 module.exports = Card;

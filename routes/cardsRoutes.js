@@ -73,6 +73,16 @@ const cardValidations = [ body('name').isLength({ min: 4, max: 60 })
         });
 
     //Delete Card
+    router.delete('/:id(\\d+)', async function (req, res, next) {
+        try {
+            console.log("Delete card with id " + req.params.id);
+            let result = await Card.deleteById(req.params.id);
+            res.status(result.status).send(result.result);
+        } catch (err) {
+            console.log(err);
+            res.status(500).send(err);
+        }
+    });
 
     //Filters
     router.get('/filter', async function (req, res, next) {
